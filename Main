@@ -1,4 +1,4 @@
-package gamestuff;
+package GameOfNim;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -8,7 +8,7 @@ public class Main extends JFrame {
 
     public Main() {
 
-        add(new Snake());
+        add(new GameWindow());
         
         setResizable(false);
         pack();
