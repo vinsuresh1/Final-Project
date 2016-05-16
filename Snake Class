@@ -1,4 +1,8 @@
+//Vineeth Suresh, Luke Liu, Will Barger
+//Snake Class
+//This is the class that hold most of the main methods and is the real backbone of the game 
 
+//Import alot of things of the awt package to use in the program
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,19 +16,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+//Imports classes from the swing package that need to be used 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+//This class, called GamWindoe needs the Jpanel and implements the ActionListener 
 public class GameWindow extends JPanel implements ActionListener {
 
+    //Declares private final values that can be used in the program as variables
     private final int WIDTH = 500;
     private final int HEIGHT = 500;
     private final int DOT_SIZE = 10;
     private final int ALL_DOTS = 2500;
     private final int RAND_POS = 29;
     private int TIME = 40;
-
+	
+    //Two arrays tha
     private final int x[] = new int[ALL_DOTS];
     private final int y[] = new int[ALL_DOTS];
 
