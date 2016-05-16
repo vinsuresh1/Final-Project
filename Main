@@ -1,31 +1,48 @@
+//Vineeth Suresh, Luke Liu, Will Barger
+//Snake Main
+//This class runs the snake game
 
+//Import awt and the swing frame to create the frame and helps run the game
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 
+//Name of class is Main and it extends the JFrame
 public class Main extends JFrame {
 
+    //Constructor method of the Main
     public Main() {
-
+        
+        //Creates the game by adding the window
         add(new GameWindow());
         
+        //Sets resizable to false, which changes the window size
         setResizable(false);
+        //Calls the pack method, which sets the frame so all the contents are the preferred size
         pack();
         
+        //Sets the title name as snake
         setTitle("Snake");
+        
+        //Sets the location of the window relative to the specified component 
         setLocationRelativeTo(null);
+        //This is so that the frame closes when the user clicks on the x button.
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-
+    //Usual main method that runs the program
     public static void main(String[] args) {
         
+        //Method that queues events and causes runnable to to run its method in the dispatch thread of EventQueue.
         EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {                
+        
+            //Run method that actually runs the program in the main
+            public void run() {     
+                //Creates a new object 
                 JFrame ex = new Main();
+                //Sets the frame, so it is visible and can be seen
                 ex.setVisible(true);                
-            }
-        });
-    }
-}
+            }//end of run method
+        });//end of EventQueue
+    }//End of Public static void main (String[] args)
+}//End of Main Class
