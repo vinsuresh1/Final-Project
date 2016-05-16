@@ -1,4 +1,3 @@
-package GameOfNim;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -19,51 +18,52 @@ import javax.swing.Timer;
 
 public class GameWindow extends JPanel implements ActionListener {
 
-    private final int B_WIDTH = 500;
-    private final int B_HEIGHT = 500;
+    private final int WIDTH = 500;
+    private final int HEIGHT = 500;
     private final int DOT_SIZE = 10;
     private final int ALL_DOTS = 2500;
     private final int RAND_POS = 29;
-    private int DELAY = 40;
+    private int TIME = 40;
 
     private final int x[] = new int[ALL_DOTS];
     private final int y[] = new int[ALL_DOTS];
 
     private int dots;
-    private int apple_x;
-    private int apple_y;
+    private int cherry_x=600;
+    private int cherry_y=600;
     
     private Button b= new Button("Beginner");
     private Button i= new Button("Intermediate");
 	private Button p= new Button("Expert");
     
-	
     private boolean inGame = true;
     
     private int score = 0;
+    
+    private KeyController keyController = new KeyController();
     
     private Timer timer;
     private Image orange;
     private Image cherry;
     private Image head;
     
-    private KeyController keyController = new KeyController();
-
+ 
     public GameWindow() {
-    	inGame= false;
-        addKeyListener(keyController);
-        setBackground(Color.white);
+    	//inGame= false;
+        
+    	addKeyListener(keyController);
+        setBackground(Color.cyan);
         setFocusable(true);
 
-        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
         loadImages();
         
-        // add a button
+        //adds beginner, intermediate, and expert modes
         b.setFocusable(false);
         b.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DELAY = 140;
+				TIME = 140;
 				initGame();
 			}
 		});
@@ -73,7 +73,7 @@ public class GameWindow extends JPanel implements ActionListener {
         i.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DELAY = 100;
+				TIME = 100;
 				initGame();
 			}
 		});
@@ -83,7 +83,7 @@ public class GameWindow extends JPanel implements ActionListener {
         p.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        		DELAY = 60;
+        		TIME = 60;
         		initGame();
         	}
         });
@@ -99,7 +99,6 @@ public class GameWindow extends JPanel implements ActionListener {
 
     private void loadImages() {
 
-    	
         ImageIcon iid = new ImageIcon("Images/orange.png");
         orange = iid.getImage();
 
@@ -122,7 +121,7 @@ public class GameWindow extends JPanel implements ActionListener {
 
         locateCherry();
 
-        timer = new Timer(DELAY, this);
+        timer = new Timer(TIME, this);
         timer.start();
     }
 
@@ -130,14 +129,14 @@ public class GameWindow extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        doDrawing(g);
+        draw(g);
     }
     
-    private void doDrawing(Graphics g) {
+    private void draw(Graphics g) {
  
         if (inGame) {
 
-            g.drawImage(cherry, apple_x, apple_y, this);
+            g.drawImage(cherry, cherry_x, cherry_y, this);
 
             for (int z = 0; z < dots; z++) {
                 if (z == 0) {
@@ -149,7 +148,7 @@ public class GameWindow extends JPanel implements ActionListener {
             
             // Score on top
             //g.setFont....
-            g.drawString(Integer.toString(score), 450, 450);
+            g.drawString(Integer.toString(score), 475, 475);
 
             Toolkit.getDefaultToolkit().sync();
 
@@ -162,25 +161,25 @@ public class GameWindow extends JPanel implements ActionListener {
     private void gameOver(Graphics g) {
         
         String msg = "Game Over";
-        Font small = new Font("Helvetica", Font.BOLD, 14);
-        FontMetrics metr = getFontMetrics(small);
+        Font font = new Font("Helvetica", Font.BOLD, 20);
+        FontMetrics metr = getFontMetrics(font);
 
         g.setColor(Color.black);
-        g.setFont(small);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        g.setFont(font);
+        g.drawString(msg, (WIDTH - metr.stringWidth(msg)) / 2, HEIGHT / 2);
     }
 
     private void checkCherry() {
 
-        if ((x[0] == apple_x) && (y[0] == apple_y)) {
+        if ((x[0] == cherry_x) && (y[0] == cherry_y)) {
         	// He ate the cherry
         	score += 10;
-        	DELAY-=10;
-        	if (DELAY<30)
+        	TIME-=10;
+        	if (TIME<30)
         	{
-        		DELAY=30;
+        		TIME=30;
         	}
-        	timer.setDelay(DELAY);
+        	timer.setDelay(TIME);
         	
             dots++;
             locateCherry();
@@ -220,7 +219,7 @@ public class GameWindow extends JPanel implements ActionListener {
             }
         }
 
-        if (y[0] >= B_HEIGHT) {
+        if (y[0] >= HEIGHT) {
             inGame = false;
         }
 
@@ -228,7 +227,7 @@ public class GameWindow extends JPanel implements ActionListener {
             inGame = false;
         }
 
-        if (x[0] >= B_WIDTH) {
+        if (x[0] >= WIDTH) {
             inGame = false;
         }
 
@@ -246,11 +245,11 @@ public class GameWindow extends JPanel implements ActionListener {
      */
     private void locateCherry() {
 
-        int r = (int) (Math.random() * RAND_POS);
-        apple_x = ((r * DOT_SIZE));
+        int x = (int) (Math.random() * RAND_POS);
+        cherry_x = ((x * DOT_SIZE));
 
-        r = (int) (Math.random() * RAND_POS);
-        apple_y = ((r * DOT_SIZE));
+        x = (int) (Math.random() * RAND_POS);
+        cherry_y = ((x * DOT_SIZE));
     }
 
     @Override
