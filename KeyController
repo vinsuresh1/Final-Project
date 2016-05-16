@@ -1,57 +1,73 @@
+//Vineeth Suresh, Luke Liu, Will Barger
+//KeyController Class
+//This creates the methods and supports the main snake class
 
+//Imports the KeyAdapter and KeyEvent which receive keyboard information and keystroke info.
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+//The class is called KeyController and extends the Keyadapter because it needs the methods from it
 public class KeyController extends KeyAdapter {
 	
-	private boolean leftDirection = false;
+    //Private booleans that are set to true and false based on their manipulation during the game. 
+    private boolean leftDirection = false;
     private boolean rightDirection = true;
     private boolean upDirection = false;
     private boolean downDirection = false;
     
+    //This method returns the boolean value of the leftDirection
     public boolean leftDirection() {
     	return leftDirection;
     }
     
+    //This method returns the boolean value of the rightDirection
     public boolean rightDirection() {
     	return rightDirection;
     }
     
+    //This method returns the boolean value of the UpDirection
     public boolean upDirection() {
     	return upDirection;
     }
     
+    //This method returns the boolean value of the downDirection
     public boolean downDirection() {
     	return downDirection;
     }
     
-    @Override
+    //Keypressed method that takes a KeyEvent Object
     public void keyPressed(KeyEvent e) {
-
+	
+	//Takes the value of what the user entered and sets it to an int 
         int key = e.getKeyCode();
 
+	//If the user goes left and doesn't go right this method words
         if ((key == KeyEvent.VK_LEFT) && (!rightDirection)) {
+       	    //Sets the boolean variables to their respective values
             leftDirection = true;
             upDirection = false;
             downDirection = false;
         }
-
+	//If the user goes right and they dont go in the left direction
         if ((key == KeyEvent.VK_RIGHT) && (!leftDirection)) {
+            //Sets the boolean variables to their respective values
             rightDirection = true;
             upDirection = false;
             downDirection = false;
         }
-
+	//If the user goes up and doesn't go down
         if ((key == KeyEvent.VK_UP) && (!downDirection)) {
+            //Sets the boolean variable to their respective values
             upDirection = true;
             rightDirection = false;
             leftDirection = false;
         }
-
+	//If the user goes down and doesn't go up
         if ((key == KeyEvent.VK_DOWN) && (!upDirection)) {
+            //Sets the boolean variables to their respective values
             downDirection = true;
             rightDirection = false;
             leftDirection = false;
-        }
-    }
-}
+        }//End of this if statement
+    }//End of KeyPressed method
+}//End of KeyController Class
